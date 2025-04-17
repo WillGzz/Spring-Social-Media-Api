@@ -9,6 +9,7 @@ import com.example.entity.Message;
 import java.util.Optional;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
+import java.util.List;
 
 
 @RestController
@@ -45,6 +46,32 @@ public class SocialMediaController {
         }  
     
         return ResponseEntity.status(200).body(accountLogin);
+    }
+
+    @PostMapping("/messages")
+    public ResponseEntity<Message> createMessage(@RequestBody Message message) {
+        Message createdMessage = messageService.creatMessage(message);
+     
+        if (createdMessage == null ){
+            return ResponseEntity.status(400).build();
+        }  
+    
+        return ResponseEntity.status(200).body(createdMessage);
+    }
+
+    @GetMapping("/messages")
+    public ResponseEntity<List<Message>> getMessages() {
+        return ResponseEntity.status(200).body(messageService.getMessages());
+    }
+
+    @GetMapping("messages/{message_id}")
+    public ResponseEntity<Message> getMessage(@PathVariable Integer message_id) {
+        return ResponseEntity.status(200).body(messageService.getMessageByID(message_id));
+    }
+    @DeleteMapping("messages/{message_id}")
+    public ResponseEntity<Integer> deleteMessage(@PathVariable Integer message_id) {
+        int deleted = messageService.deleteMessageByID(message_id);
+        return deleted == 1 ? ResponseEntity.status(200).body(deleted) : ResponseEntity.status(200).build(); 
     }
 
 }
