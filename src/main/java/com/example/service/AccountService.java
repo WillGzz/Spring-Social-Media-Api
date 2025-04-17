@@ -15,4 +15,31 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-}
+    public Account registerAccount (Account account){
+        Optional<Account> optionalAccount = accountRepository.findByUsername(account.getUsername());
+        if (account.getUsername().isBlank() || account.getPassword().length() < 4 || optionalAccount.isPresent()){
+
+            return null;
+        }   
+        
+    return accountRepository.save(account);
+
+  }
+
+  public Account accountLogin (Account account){
+
+    Optional<Account> retrievedAccount = accountRepository.findByUsername(account.getUsername());
+    if (retrievedAccount.isPresent()) {
+       if (retrievedAccount.get().getUsername().equals(account.getUsername()) && retrievedAccount.get().getPassword().equals(account.getPassword())){
+                         return retrievedAccount.get();
+       }
+
+    }
+
+    return null;
+
+   }
+
+  }
+   
+
