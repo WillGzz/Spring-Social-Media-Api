@@ -38,6 +38,7 @@ public class MessageService {
 
         return messageRepository.findByPostedBy(messageID);
       }
+
     public int deleteMessageByID(Integer messageID){
          if(messageRepository.existsById(messageID)){
                 messageRepository.deleteById(messageID);
@@ -46,4 +47,22 @@ public class MessageService {
         return 0;
       }
 
+      public int updateMessageByID(int message_ID, String messageText){
+        Optional<Message> optionalMessage = messageRepository.findById(message_ID);
+        if (optionalMessage.isPresent() && !messageText.isEmpty() && messageText.length() < 255){
+            optionalMessage.get().setMessageText(messageText);
+            messageRepository.save(optionalMessage.get());
+            return 1;
+        }
+        return 0;
+    }
+ 
+       
+    public List<Message> getAllMessagesByID(Integer accountID ) {
+
+        return messageRepository.findAllByPostedBy(accountID);
+    }   
+
+
+    
 }
