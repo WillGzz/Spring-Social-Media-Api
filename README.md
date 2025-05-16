@@ -13,12 +13,11 @@ This project serves as the backend API for a social media application, built usi
 
 The project follows a **three-layer architecture**, consisting of:
 
-- **Controller Layer**: Handles HTTP requests and routes them to appropriate service methods.
-- **Service Layer**: Contains the business logic for processing data and interacting with the DAO layer.
+- **Controller Layer**: Handles incoming HTTP requests and delegates processing to the service layer using Spring MVC.
+- **Service Layer**: Contains business logic and communicates between controllers and repositories.
 - **Repository (DAO) Layer**: Interfaces with the database using Spring Data JPA.
 
 ## Technologies Used
-
 
 **Language:**  
 - Java  
